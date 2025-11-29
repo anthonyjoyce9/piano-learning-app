@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Learning App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎹 Piano Learning App</h1>
+            <p>Watch the screen and play along on your real piano!</p>
+        </header>
+
+        <div class="controls">
+            <div class="mode-selector">
+                <button id="fileMode" class="mode-btn active">📁 File Upload</button>
+                <button id="micMode" class="mode-btn">🎤 Microphone</button>
+            </div>
+
+            <div class="play-mode-selector">
+                <label>Learning Mode:</label>
+                <button id="liveMode" class="play-mode-btn active">🎵 Live Mode (Play along with song)</button>
+                <button id="practiceMode" class="play-mode-btn">📖 Practice Mode (Step-by-step guide)</button>
+            </div>
+
+            <div class="difficulty-selector">
+                <label>Difficulty:</label>
+                <button id="beginnerMode" class="difficulty-btn active">🟢 Beginner (Melody)</button>
+                <button id="intermediateMode" class="difficulty-btn">🟡 Intermediate (+ Harmony)</button>
+                <button id="advancedMode" class="difficulty-btn">🔴 Advanced (Full Song)</button>
+            </div>
+
+            <div class="theme-selector">
+                <label>Theme:</label>
+                <button id="purpleTheme" class="theme-btn active" style="background: linear-gradient(135deg, #a855f7, #ec4899);">💜 Purple</button>
+                <button id="blueTheme" class="theme-btn" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">💙 Blue</button>
+                <button id="greenTheme" class="theme-btn" style="background: linear-gradient(135deg, #10b981, #84cc16);">💚 Green</button>
+                <button id="goldTheme" class="theme-btn" style="background: linear-gradient(135deg, #f59e0b, #eab308);">💛 Gold</button>
+                <button id="redTheme" class="theme-btn" style="background: linear-gradient(135deg, #ef4444, #f97316);">❤️ Red</button>
+            </div>
+
+            <div class="upload-section" id="fileSection">
+                <input type="file" id="audioFile" accept="audio/*,audio/midi,.mid,.midi">
+                <label for="audioFile" class="upload-btn">Choose Audio File</label>
+                <span id="fileName"></span>
+                <p style="font-size: 11px; color: #666; margin-top: 5px;">
+                    💡 Upload any audio file - automatic AI conversion to MIDI!<br>
+                    <strong>Best results:</strong> Piano-only recordings or MIDI files.
+                </p>
+            </div>
+
+            <div class="mic-section" id="micSection" style="display: none;">
+                <button id="startMic" class="upload-btn">Start Listening</button>
+                <button id="stopMic" class="upload-btn" style="display: none;">Stop Listening</button>
+                <span id="micStatus"></span>
+            </div>
+            
+            <div class="playback-controls">
+                <button id="playBtn" disabled>▶ Play</button>
+                <button id="pauseBtn" disabled>⏸ Pause</button>
+                <button id="stopBtn" disabled>⏹ Stop</button>
+                <button id="prevStepBtn" disabled style="display: none;">⏮ Previous</button>
+                <button id="nextStepBtn" disabled style="display: none;">⏭ Next</button>
+                <input type="range" id="speedControl" min="0.5" max="2" step="0.1" value="1">
+                <span id="speedValue">Speed: 1x</span>
+            </div>
+        </div>
+
+        <div class="view-tabs">
+            <button id="fallingViewTab" class="view-tab active">🎮 Falling Notes</button>
+            <button id="pianoRollTab" class="view-tab">📊 Piano Roll</button>
+        </div>
+
+        <div id="fallingView" class="view-container">
+            <div class="piano-container">
+                <div class="canvas-wrapper">
+                    <canvas id="fallingNotes"></canvas>
+                    <canvas id="pianoCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="pianoRollView" class="view-container" style="display: none;">
+            <div class="piano-roll-container">
+                <canvas id="pianoRollCanvas"></canvas>
+            </div>
+        </div>
+
+        <div class="visualization">
+            <canvas id="waveform"></canvas>
+        </div>
+
+        <div class="note-display">
+            <h3>🎵 Current Notes</h3>
+            <div id="currentNotes"></div>
+            <p class="helper-text">Play these notes on your real piano!</p>
+        </div>
+    </div>
+
+    <!-- MIDI file parser -->
+    <script src="https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.28/build/Midi.js"></script>
+    
+    <!-- TensorFlow.js and Basic Pitch for audio-to-MIDI -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.2.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/music@1.23.1/es6/core.js"></script>
+    
+    <script src="audioAnalyzer.js"></script>
+    <script src="syncedPlayer.js"></script>
+    <script src="midiConverter.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
