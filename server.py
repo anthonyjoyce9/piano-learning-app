@@ -103,7 +103,7 @@ def midi_to_note_name(midi_number):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    print("🎹 Piano Learning App - Conversion Server")
+    print("🎹 Piano Learning App - Conversion Server v1.0")
     if BASIC_PITCH_AVAILABLE:
         print("✓ Basic Pitch AI ready!")
     else:
